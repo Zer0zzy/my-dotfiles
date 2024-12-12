@@ -1,0 +1,4 @@
+README.md
+
+icons/ # Ignore the folder
+icons/** # Ignore the contents of the folder.

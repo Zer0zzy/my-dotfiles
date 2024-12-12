@@ -1,6 +1,6 @@
-$env:POSH_GIT_ENABLED = $true
-Import-Module posh-git
-oh-my-posh init pwsh --config ~\.config\.oh-my-posh.omp.json | Invoke-Expression
+# $env:POSH_GIT_ENABLED = $true
+# Import-Module posh-git
+# oh-my-posh init pwsh --config ~\.config\.oh-my-posh.omp.json | Invoke-Expression
 
 # PowerShell parameter completion shim for the dotnet CLI
 Register-ArgumentCompleter -Native -CommandName dotnet -ScriptBlock {
