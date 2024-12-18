@@ -1,0 +1,32 @@
+{{ if and (eq .chezmoi.os "windows") (not .headless) -}}
+
+{{ $extensions := list
+    "catppuccin.catppuccin-vsc-pack"
+    "plorefice.devicetree"
+    "donjayamanne.githistory"
+    "ujjwalbarman.kamekazi-dark"
+    "vintharas.learn-vim"
+    "asvetliakov.vscode-neovim"
+    "eamodio.gitlens"
+    "EditorConfig.EditorConfig"
+    "ms-python.python"
+    "ms-azuretools.vscode-docker"
+    "ms-vscode-remote.remote-containers"
+    "ms-vscode-remote.remote-ssh"
+    "ms-vscode-remote.remote-ssh-edit"
+    "ms-vscode-remote.vscode-remote-extensionpack"
+    "ms-vscode.cpptools"
+    "redhat.vscode-yaml"
+    "stkb.rewrap"
+    "streetsidesoftware.code-spell-checker"
+    "tamasfe.even-better-toml"
+    "twpayne.vscode-igc"
+    "twpayne.vscode-testscript"
+    "Tyriar.sort-lines"
+    "yzhang.markdown-all-in-one" -}}
+
+{{ range $extensions -}}
+code --force --install-extension {{ . }}
+{{ end -}}
+
+{{ end -}}
