@@ -23,4 +23,6 @@ scoop bucket add versions
 scoop install {{ . }}
 {{ end -}}
 
+  [System.Environment]::SetEnvironmentVariable('KOMOREBI_CONFIG_HOME',"$env:USERPROFILE\.config\komorebi")
+
 {{ end -}}
