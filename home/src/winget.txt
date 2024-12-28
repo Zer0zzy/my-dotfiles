@@ -1,0 +1,5 @@
+Beeper.Beeper
+Proton.ProtonDrive
+Apple.iTunes
+Amazon.Games
+RedHat.VirtViewer
