@@ -2,7 +2,6 @@
 
 This is a work in progress. Currently I have completed only some of the settings.
 
-- [x] Vivaldi - Use profile sync instead
 - [ ] PowerToys - Set only the settings files and pull external for PowerToys run extension
 - [v] Komorebi
 - [v] VSCode
