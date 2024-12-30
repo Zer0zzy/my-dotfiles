@@ -1,0 +1,28 @@
+{{ if and (eq .chezmoi.os "windows") (not .headless) -}}
+scoop bucket add extras
+scoop bucket add nerd-fonts
+scoop bucket add versions
+
+{{ $apps := list
+    "main/oh-my-posh"
+    "main/pwsh"
+    "extras/mobaxterm"
+    "extras/komorebi"
+    "extras/whkd"
+    "extras/scoop-completion"
+    "extras/obisidan"
+    "extras/powertoys"
+    "extras/discord"
+    "extras/nextcloud"
+    "extras/vscode"
+    "extras/brave"
+    "versions/steam"
+    "nerd-fonts/FiraCode-NF" -}}
+
+{{ range $apps -}}
+scoop install {{ . }}
+{{ end -}}
+
+  [System.Environment]::SetEnvironmentVariable('KOMOREBI_CONFIG_HOME',"$env:USERPROFILE\.config\komorebi")
+
+{{ end -}}

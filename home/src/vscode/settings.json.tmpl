@@ -1,3 +1,4 @@
+{{- $userDir := .chezmoi.homeDir }}
 {
     "workbench.colorTheme": "Catppuccin Macchiato",
     "[dart]": {
@@ -15,12 +16,11 @@
     "dart.openDevTools": "flutter",
     "git.confirmSync": false,
     "git.autofetch": true,
-    "wakatime.apiKey": {{ (bitwarden "item" "WakaTime API Key").login.password }},
+    "wakatime.apiKey": {{ bitwarden "password" "WakatimeApiKey" }},
     "git.enableSmartCommit": true,
     "dev.containers.executeInWSL": true,
-    "workbench.iconTheme": "catppuccin-macchiato",
-    "workbench.productIconTheme": "icons-kamekazi-dark",
-    "editor.fontFamily": "'Fira Code Retina', Consolas, 'Courier New', monospace",
+    "workbench.iconTheme": "icons-kamekazi-dark",
+    "editor.fontFamily": "'FiraCode Nerd Font'",
     "docker.enableDockerComposeLanguageService": false,
     "workbench.startupEditor": "none",
     "settingsSync.ignoredSettings": [
@@ -31,9 +31,13 @@
         "192.168.40.50": "linux",
         "dev-env": "linux"
     },
-    "remote.SSH.configFile": "C:\\Users\\thats\\.ssh\\config",
+    "remote.SSH.configFile": {{joinPath .chezmoi.homeDir "/.ssh/config"}},
     "settingsSync.ignoredExtensions": [
         "ms-vscode.cpptools-themes"
     ],
-    "powershell.promptToUpdatePowerShell": false
+    "powershell.promptToUpdatePowerShell": false,
+    "catppuccin.colorOverrides": {},
+    "terminal.integrated.fontFamily": "'FiraCode Nerd Font'",
+    "workbench.productIconTheme": "icons-kamekazi-dark",
+    "chat.commandCenter.enabled": false
 }

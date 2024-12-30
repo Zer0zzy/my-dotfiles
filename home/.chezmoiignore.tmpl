@@ -2,7 +2,9 @@ README.md
 
 icons/ # Ignore the folder
 icons/** # Ignore the contents of the folder.
-settings.json
+src/
+src/**
+.chezmoiexternal.toml.tmpl
 
 !.oh-my-zsh/plugins
 {{ range .zshPlugins }}
@@ -13,14 +15,6 @@ settings.json
 .oh-my-zsh/plugins/**
 .oh-my-zsh/templates/**
 .oh-my-zsh/custom/themes/powerlevel10k/**/*.zwc
-
-{{ if ne .chezmoi.os "darwin" }}
-.chezmoiscripts/darwin/**
-.config/homebrew
-.config/karabiner
-.config/wezterm
-.hammerspoon
-{{ end }}
 
 {{ if ne .chezmoi.os "linux" }}
 .chezmoiscripts/linux/**

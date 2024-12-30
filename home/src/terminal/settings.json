@@ -57,12 +57,6 @@
         "list": 
         [
             {
-                "commandline": "%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
-                "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
-                "hidden": true,
-                "name": "Windows PowerShell"
-            },
-            {
                 "commandline": "%SystemRoot%\\System32\\cmd.exe",
                 "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
                 "hidden": true,
@@ -70,6 +64,7 @@
                 "tabTitle": "cmd"
             },
             {
+                "commandline": "pwsh -ExecutionPolicy RemoteSigned",
                 "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
                 "hidden": false,
                 "name": "PowerShell",
@@ -88,12 +83,18 @@
                 "source": "Git"
             },
             {
-                "commandline": "pwsh",
+                "commandline": "pwsh -ExecutionPolicy RemoteSigned",
                 "elevate": true,
                 "guid": "{230ffdd3-2470-4e3e-ad47-d726eb792eb3}",
                 "hidden": false,
                 "icon": "ms-appx:///ProfileIcons/pwsh.png",
                 "name": "PowerShell Admin"
+            },
+            {
+                "commandline": "%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -ExecutionPolicy RemoteSigned -Command \"& {scoop update pwsh}\"",
+                "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+                "hidden": false,
+                "name": "Update Pwsh"
             }
         ]
     },

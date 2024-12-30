@@ -3,13 +3,13 @@
 # 2. Run `Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope Process`
 # 3. Run `chezmoi apply ~/.chezmoiscripts/windows/remove-bloat.ps1`
 #
-# FIXME automate running this script as Administrator
+# automate running this script as Administrator
+#Requires -RunAsAdministrator
 
 # FIXME remove CoPilot
 # FIXME remove Spotify
 # FIXME remove LinkedIn
 # FIXME remove Windows 11 bottom left widget
-
 Get-AppxPackage -AllUsers Clipchamp.Clipchamp | Remove-AppxPackage
 Get-AppxPackage -AllUsers Microsoft.549981C3F5F10 | Remove-AppxPackage
 Get-AppxPackage -AllUsers Microsoft.BingNews | Remove-AppxPackage
