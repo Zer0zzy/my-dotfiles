@@ -8,62 +8,62 @@
 If (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator"))
 {   
 #"No Administrative rights, it will display a popup window asking user for Admin rights"
-    $arguments = "& '" + $myinvocation.mycommand.definition + "'"
-    Start-Process "$psHome\powershell.exe" -Verb runAs -ArgumentList $arguments
+    $arguments = "& '" + $myinvocation.mycommand.definition + "'" + " -NoExit"
+    Start-Process "$psHome\powershell.exe" -Verb runAs -Wait -ArgumentList $arguments 
     break
 }
 #"After user clicked Yes on the popup, your file will be reopened with Admin rights"
 #"Put your code here"
-$AppXErrors = $False;
+$global:AppxErrors = $False;
 
 # FIXME remove Spotify
 # FIXME remove LinkedIn
 # FIXME remove Windows 11 bottom left widget
 $Packages = @(
-Microsoft.Copilot, 
-ClipChamp.ClipChamp,
-DellInc.DellSupportAssistforPCs,
-DellInc.DellDigitalDelivery,
-DellInc.DellOptimizer,
-Microsoft.549981C3F5F10,
-Microsoft.BingNews,
-Microsoft.BingWeather,
-Microsoft.GamingApp,
-Microsoft.GetHelp,
-Microsoft.GetStarted,
-Microsoft.Microsoft3DViewer,
-# Microsoft.MicrosoftOfficeHub,
-Microsoft.MicrosoftSolitaireCollection,
-Microsoft.MicrosoftStickyNotes,
-Microsoft.MixedReality.Portal,
-# Microsoft.MSPaint,
-# Microsoft.OutlookForWindows,
-# Microsoft.Paint,
-Microsoft.People,
-Microsoft.ScreenSketch,
-Microsoft.SkypeApp,
-Microsoft.StorePurchaseApp, # Marks Purchases in Msft Store
-Microsoft.Todos,
-Microsoft.Windows.ParentalControls,
-# Microsoft.Windows.Photos,
-Microsoft.WindowsAlarms,
-Microsoft.WindowsCalculator,
-Microsoft.WindowsCamera,
-# Microsoft.WindowsCommunicationsApps, # Start Menu Apps for People/Mail/Calendar
-Microsoft.WindowsFeedbackHub,
-Microsoft.WindowsMaps,
-# Microsoft.WindowsSoundRecorder,
-# Microsoft.WindowsStore,
-Microsoft.Xbox.TCUI,
-Microsoft.XboxApp,
-Microsoft.XboxGameOverlay,
-Microsoft.XboxGamingOverlay,
-Microsoft.XboxIdentityOverlay,
-Microsoft.XboxSpeechToTextOverlay,
-# Microsoft.YourPhone,
-Microsoft.ZuneMusic,
-Microsoft.ZuneVideo,
-MicrosoftWindows.LKG.DesktopSpotlight
+"Microsoft.Copilot", 
+"ClipChamp.ClipChamp",
+"DellInc.DellSupportAssistforPCs",
+"DellInc.DellDigitalDelivery",
+"DellInc.DellOptimizer",
+"Microsoft.549981C3F5F10",
+"Microsoft.BingNews",
+"Microsoft.BingWeather",
+"Microsoft.GamingApp",
+"Microsoft.GetHelp",
+"Microsoft.GetStarted",
+"Microsoft.Microsoft3DViewer",
+# "Microsoft.MicrosoftOfficeHub",
+"Microsoft.MicrosoftSolitaireCollection",
+"Microsoft.MicrosoftStickyNotes",
+"Microsoft.MixedReality.Portal",
+# "Microsoft.MSPaint",
+# "Microsoft.OutlookForWindows",
+# "Microsoft.Paint",
+"Microsoft.People",
+"Microsoft.ScreenSketch",
+"Microsoft.SkypeApp",
+"Microsoft.StorePurchaseApp", # Marks Purchases in Msft Store
+"Microsoft.Todos",
+"Microsoft.Windows.ParentalControls",
+# Microsoft.Windows.Photos",
+"Microsoft.WindowsAlarms",
+"Microsoft.WindowsCalculator",
+"Microsoft.WindowsCamera",
+# "Microsoft.WindowsCommunicationsApps", # Start Menu Apps for People/Mail/Calendar
+"Microsoft.WindowsFeedbackHub",
+"Microsoft.WindowsMaps",
+# "Microsoft.WindowsSoundRecorder",
+# "Microsoft.WindowsStore",
+"Microsoft.Xbox.TCUI",
+"Microsoft.XboxApp",
+"Microsoft.XboxGameOverlay",
+"Microsoft.XboxGamingOverlay",
+"Microsoft.XboxIdentityOverlay",
+"Microsoft.XboxSpeechToTextOverlay",
+# "Microsoft.YourPhone",
+"Microsoft.ZuneMusic",
+"Microsoft.ZuneVideo",
+"MicrosoftWindows.LKG.DesktopSpotlight"
 );
 
 $Packages | ForEach-Object {
@@ -71,11 +71,12 @@ $Packages | ForEach-Object {
     If (Get-AppxPackage -AllUsers $Package | Remove-AppxPackage -ErrorAction SilentlyContinue) {
         Write-Output "Removed $Package"
     } Else {
-        Write-Error "Could not remove $Package."
-        $AppxErrors = $True;
+        Write-Host "Could not remove $Package."
+        $global:AppxErrors = $True
+
     }
 }
-If ($AppxErrors) {Get-AppxLog}
+If ($global:AppxErrors) {Get-AppxLog}
 
 # https://learn.microsoft.com/en-us/answers/questions/1421927/uninstall-unpin-spotify-whatsapp-etc-using-script
 
