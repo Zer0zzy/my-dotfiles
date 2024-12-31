@@ -68,14 +68,15 @@ $Packages = @(
 
 $Packages | ForEach-Object {
     $Package = $_
-    If (Get-AppxPackage -AllUsers $Package | Remove-AppxPackage -ErrorAction SilentlyContinue) {
-        Write-Output "Removed $Package"
-    } Else {
+    Try {
+        Get-AppxPackage -AllUsers $Package | Remove-AppxPackage -AllUsers -ErrorAction Stop
+        Write-Host "Removed $Package."
+    } Catch {
         Write-Host "Could not remove $Package."
         $global:AppxErrors = $True
-
     }
 }
+
 If ($global:AppxErrors) {Get-AppxLog}
 
 # https://learn.microsoft.com/en-us/answers/questions/1421927/uninstall-unpin-spotify-whatsapp-etc-using-script
