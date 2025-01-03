@@ -23,7 +23,10 @@ If (-Not (Get-Command scoop -ErrorAction SilentlyContinue)) {
 
 If (Get-Command bw -ErrorAction SilentlyContinue) {
   bw login
-  $BW_SESSION_INIT=$(bw unlock --raw)
+  $SecureString = Read-Host -AsSecureString 
+  [System.Runtime.InteropServices.Marshal]::PtrToStringAuto([System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SecureString)) | Out-File $env:USERPROFILE\bw.txt
+  (Get-Item $env:USERPROFILE\bw.txt).Attributes+='Hidden'
+  $BW_SESSION_INIT=$(bw unlock --passwordfile $env:USERPROFILE\bw.txt)
   [System.Environment]::SetEnvironmentVariable('BW_SESSION',"$BW_SESSION_INIT")
 
   If (-Not (Get-Command chezmoi -ErrorAction SilentlyContinue)) {
