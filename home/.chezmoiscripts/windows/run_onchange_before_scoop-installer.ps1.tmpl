@@ -3,24 +3,30 @@ scoop bucket add extras
 scoop bucket add nerd-fonts
 scoop bucket add versions
 
-{{ $apps := list
+{{ $scoop_apps := list
     "main/oh-my-posh"
     "main/pwsh"
+    "main/neovim"
     "extras/mobaxterm"
-    "extras/komorebi"
-    "extras/whkd"
+    "extras/autohotkey"
     "extras/scoop-completion"
     "extras/obisidan"
-    "extras/powertoys"
-    "extras/nextcloud"
-    "extras/vscode"
-    "versions/steam"
     "nerd-fonts/FiraCode-NF" -}}
 
-{{ range $apps -}}
+{{ range $scoop_apps -}}
 scoop install {{ . }}
 {{ end -}}
 
-  [System.Environment]::SetEnvironmentVariable('KOMOREBI_CONFIG_HOME',"$env:USERPROFILE\.config\komorebi")
+{{ $winget_apps := list
+    "Microsoft.Powertoys"
+    "Microsoft.VisualStudioCode"
+    "Bitwarden.Bitwarden" -}}
+
+{{ range $winget_apps -}}
+winget install {{ . }} --Scope User
+{{ end -}}
+
+{{ if or (eq .chezmoi. )}}
+
 
 {{ end -}}

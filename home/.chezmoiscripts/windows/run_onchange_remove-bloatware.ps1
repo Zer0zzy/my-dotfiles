@@ -4,16 +4,15 @@
 # 1. Run `chezmoi apply ~/.chezmoiscripts/windows/remove-bloatware.ps1`
 #
 # automate running this script as Administrator
-# Check if Powershell is running as Admin
-If (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator"))
-{   
-#"No Administrative rights, it will display a popup window asking user for Admin rights"
-    $arguments = "& '" + $myinvocation.mycommand.definition + "'" + " -NoExit"
-    Start-Process "$psHome\powershell.exe" -Verb runAs -Wait -ArgumentList $arguments 
-    break
-}
-#"After user clicked Yes on the popup, your file will be reopened with Admin rights"
-#"Put your code here"
+# Self-elevate the script if required
+if (-Not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] 'Administrator')) {
+    if ([int](Get-CimInstance -Class Win32_OperatingSystem | Select-Object -ExpandProperty BuildNumber) -ge 6000) {
+      $CommandLine = "-NoExit -File `"" + $MyInvocation.MyCommand.Path + "`" " + $MyInvocation.UnboundArguments
+      Start-Process -Wait -FilePath PowerShell.exe -Verb Runas -ArgumentList $CommandLine
+      Exit
+    }
+  }
+  
 $global:AppxErrors = $False;
 
 # FIXME remove Spotify
@@ -28,10 +27,10 @@ $Packages = @(
 "Microsoft.549981C3F5F10",
 "Microsoft.BingNews",
 "Microsoft.BingWeather",
-"Microsoft.GamingApp",
-"Microsoft.GetHelp",
-"Microsoft.GetStarted",
-"Microsoft.Microsoft3DViewer",
+# "Microsoft.GamingApp",
+# "Microsoft.GetHelp",
+# "Microsoft.GetStarted",
+# "Microsoft.Microsoft3DViewer",
 # "Microsoft.MicrosoftOfficeHub",
 "Microsoft.MicrosoftSolitaireCollection",
 "Microsoft.MicrosoftStickyNotes",
@@ -40,26 +39,26 @@ $Packages = @(
 # "Microsoft.OutlookForWindows",
 # "Microsoft.Paint",
 "Microsoft.People",
-"Microsoft.ScreenSketch",
+# "Microsoft.ScreenSketch",
 "Microsoft.SkypeApp",
-"Microsoft.StorePurchaseApp", # Marks Purchases in Msft Store
+# "Microsoft.StorePurchaseApp", # Marks Purchases in Msft Store
 "Microsoft.Todos",
 "Microsoft.Windows.ParentalControls",
 # Microsoft.Windows.Photos",
-"Microsoft.WindowsAlarms",
-"Microsoft.WindowsCalculator",
-"Microsoft.WindowsCamera",
+# "Microsoft.WindowsAlarms",
+# "Microsoft.WindowsCalculator",
+# "Microsoft.WindowsCamera",
 # "Microsoft.WindowsCommunicationsApps", # Start Menu Apps for People/Mail/Calendar
-"Microsoft.WindowsFeedbackHub",
-"Microsoft.WindowsMaps",
+# "Microsoft.WindowsFeedbackHub",
+# "Microsoft.WindowsMaps",
 # "Microsoft.WindowsSoundRecorder",
 # "Microsoft.WindowsStore",
-"Microsoft.Xbox.TCUI",
-"Microsoft.XboxApp",
-"Microsoft.XboxGameOverlay",
-"Microsoft.XboxGamingOverlay",
-"Microsoft.XboxIdentityOverlay",
-"Microsoft.XboxSpeechToTextOverlay",
+# "Microsoft.Xbox.TCUI",
+# "Microsoft.XboxApp",
+# "Microsoft.XboxGameOverlay",
+# "Microsoft.XboxGamingOverlay",
+# "Microsoft.XboxIdentityOverlay",
+# "Microsoft.XboxSpeechToTextOverlay",
 # "Microsoft.YourPhone",
 "Microsoft.ZuneMusic",
 "Microsoft.ZuneVideo",

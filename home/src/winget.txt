@@ -1,5 +1,13 @@
-Beeper.Beeper
-Proton.ProtonDrive
-Apple.iTunes
-Amazon.Games
-RedHat.VirtViewer
+Microsoft.Powertoys, \
+Microsoft.VisualStudioCode, \
+
+Beeper.Beeper, \
+Proton.ProtonDrive, \
+Amazon.Games, \
+RedHat.VirtViewer, \
+Ubisoft.Connect, \
+Nextcloud.NextcloudDesktop, \
+Valve.Steam, \
+Discord.Discord, \
+Vendicated.Vencord, \
+ONLYOFFICE.DesktopEditors
